@@ -18,16 +18,16 @@ app.use((req, res, next) => {
     next();
 });
 
-// Ensure uploads directory exists
-const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) {
+// Ensure uploads directory exists (Using /tmp for Vercel Serverless environment)
+const uploadDir = process.env.VERCEL ? '/tmp' : path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir) && !process.env.VERCEL) {
     fs.mkdirSync(uploadDir);
 }
 
 // Multer storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
@@ -100,3 +100,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
+module.exports = app;
