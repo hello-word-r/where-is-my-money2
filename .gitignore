@@ -1,0 +1,14 @@
+# Common
+node_modules/
+.DS_Store
+*.log
+.env
+
+# Backend
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Frontend
+frontend-v3/dist/
+frontend-v3/dist-ssr/
+frontend-v3/.vscode/
