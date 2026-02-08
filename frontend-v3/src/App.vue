@@ -27,8 +27,12 @@ const logs = ref([]);
 const progress = ref(0);
 const reportRef = ref(null);
 
-// Mock Backend URL (uses environment variable on production, localhost on dev)
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+// Mock Backend URL (uses environment variable on production, fallback to production URL if on Vercel)
+const API_BASE =
+  import.meta.env.VITE_API_BASE ||
+  (window.location.hostname.includes("vercel.app")
+    ? "https://where-is-my-money2-new.vercel.app"
+    : "http://localhost:3000");
 
 // --- Actions ---
 

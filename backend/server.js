@@ -28,8 +28,8 @@ if (!fs.existsSync(uploadDir) && !process.env.VERCEL) {
     fs.mkdirSync(uploadDir);
 }
 
-// Multer storage
-const storage = multer.diskStorage({
+// Multer storage (Use memoryStorage for Vercel Serverless to avoid FS issues)
+const storage = process.env.VERCEL ? multer.memoryStorage() : multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, uploadDir);
     },
