@@ -8,4 +8,7 @@ export default defineConfig({
     vue(),
     UnoCSS(),
   ],
+  build: {
+    target: 'es2015', // 提高旧版手机浏览器兼容性
+  }
 })
